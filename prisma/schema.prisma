@@ -9,3 +9,88 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+  image    String
+
+  @@map("users")
+}
+
+model Movies {
+  id          Int    @id @default(autoincrement())
+  name        String @unique
+  image       String
+  description String
+
+  Gender   Gender @relation(fields: [genderId], references: [id])
+  genderId Int
+  Type     Type   @relation(fields: [typeId], references: [id])
+  typeId   Int
+
+  @@map("movies")
+}
+
+model Series {
+  id          Int    @id @default(autoincrement())
+  name        String @unique
+  image       String
+  description String
+
+  Gender   Gender @relation(fields: [genderId], references: [id])
+  genderId Int
+  Type     Type   @relation(fields: [typeId], references: [id])
+  typeId   Int
+
+  @@map("series")
+}
+
+model Books {
+  id          Int    @id @default(autoincrement())
+  name        String @unique
+  image       String
+  description String
+
+  Gender   Gender @relation(fields: [genderId], references: [id])
+  genderId Int
+  Type     Type   @relation(fields: [typeId], references: [id])
+  typeId   Int
+
+  @@map("books")
+}
+
+model GraphicNovels {
+  id          Int    @id @default(autoincrement())
+  name        String @unique
+  image       String
+  description String
+
+  Gender   Gender @relation(fields: [genderId], references: [id])
+  genderId Int
+  Type     Type   @relation(fields: [typeId], references: [id])
+  typeId   Int
+
+  @@map("Graphic Novel")
+}
+
+model Gender {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  books         Books[]
+  movies        Movies[]
+  series        Series[]
+  GraphicNovels GraphicNovels[]
+}
+
+model Type {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  books         Books[]
+  movies        Movies[]
+  series        Series[]
+  GraphicNovels GraphicNovels[]
+}
